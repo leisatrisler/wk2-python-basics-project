@@ -5,29 +5,34 @@ from PIL import Image, ImageTk
 class ShoppingCart(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("vg Cart")
+        self.title("Veggie Tales")
         self.items = []
         self.total = 0.0
 
-        self.item_listbox = tk.Text(self, width=50, height=10)
-        self.item_listbox.pack(side=tk.LEFT, padx=10, pady=10)
+        # this is the left box with icons
+        self.item_listbox = tk.Text(self, width=75, height=75)
+        self.item_listbox.pack(side=tk.LEFT, padx=50, pady=50)
 
+        # this is the right box
         self.cart_listbox = tk.Listbox(self, width=50)
-        self.cart_listbox.pack(side=tk.LEFT, padx=10, pady=10)
+        self.cart_listbox.pack(side=tk.LEFT, padx=50, pady=50)
 
+        # this is the far right add to cart and total
         self.total_label = tk.Label(self, text="Total: $0.00")
+        # self.total_label.bind("<Button-1>", self.add_to_cart)
         self.total_label.pack()
+
+        def on_click(event):
+            print("I clicked")
 
         self.images = []
         for item in items:
-            my_items = item["item"]
-            print(my_items)
-            image = Image.open(my_items["image"])
-            image = image.resize((100, 100))
+            image = Image.open(item["image"])
+            image = image.resize((220, 220))
             photo = ImageTk.PhotoImage(image)
             self.images.append(photo)
+            self.item_listbox.insert(tk.END, "\n" + item["name"])
             self.item_listbox.image_create(tk.END, image=photo)
-            self.item_listbox.insert(tk.END, "\n" + my_items["name"])
 
         self.add_button = tk.Button(self, text="Add to Cart", command=self.add_to_cart)
         self.add_button.pack(pady=10)
@@ -64,73 +69,71 @@ class ShoppingCart(tk.Tk):
 if __name__ == "__main__":
     items = [
         {
-            "item": {
-                "id": 2,
-                "name": "Confident Carrot",
-                "image": "./confident_carrot.png",
-                "price": 0.99,
-            },
-            "item": {
-                "id": 3,
-                "name": "Romantic Radishes",
-                "image": "./romantic_radishes.png",
-                "price": 1.50,
-            },
-            "item": {
-                "id": 4,
-                "name": "Panic Pear",
-                "image": "./panic-pear.png",
-                "price": 0.75,
-            },
-            "item": {
-                "id": 5,
-                "name": "Obnoxious Onion",
-                "image": "./obnoxious_onion.png",
-                "price": 0.50,
-            },
-            "item": {
-                "id": 6,
-                "name": "Melancholy Mushroom",
-                "image": "./melancholy_mushroom.png",
-                "price": 1.25,
-            },
-            "item": {
-                "id": 7,
-                "name": "Affection Asparagus",
-                "image": "./affection_asparagus.png",
-                "price": 4.25,
-            },
-            "item": {
-                "id": 8,
-                "name": "Patient Peas",
-                "image": "./patient_peas.png",
-                "price": 2.25,
-            },
-            "item": {
-                "id": 9,
-                "name": "Bubbly Banana",
-                "image": "./bubbly_banana.png",
-                "price": 0.75,
-            },
-            "item": {
-                "id": 10,
-                "name": "Cheeky Cherries",
-                "image": "./cheeky_cherries.png",
-                "price": 3.75,
-            },
-            "item": {
-                "id": 11,
-                "name": "Rebellious Raspberries",
-                "image": "./rebellious_raspberries.png",
-                "price": 2.75,
-            },
-            "item": {
-                "id": 12,
-                "name": "Amused Apple",
-                "image": "./amused_apple.png",
-                "price": 1.75,
-            },
-        }
+            "id": 2,
+            "name": "Confident Carrot",
+            "image": "./confident_carrot.png",
+            "price": 0.99,
+        },
+        {
+            "id": 3,
+            "name": "Romantic Radishes",
+            "image": "./romantic_radishes.png",
+            "price": 1.50,
+        },
+        {
+            "id": 4,
+            "name": "Panic Pear",
+            "image": "./panic-pear.png",
+            "price": 0.75,
+        },
+        {
+            "id": 5,
+            "name": "Obnoxious Onion",
+            "image": "./obnoxious_onion.png",
+            "price": 0.50,
+        },
+        {
+            "id": 6,
+            "name": "Melancholy Mushroom",
+            "image": "./melancholy_mushroom.png",
+            "price": 1.25,
+        },
+        {
+            "id": 7,
+            "name": "Affection Asparagus",
+            "image": "./affection_asparagus.png",
+            "price": 4.25,
+        },
+        {
+            "id": 8,
+            "name": "Patient Peas",
+            "image": "./patient_peas.png",
+            "price": 2.25,
+        },
+        {
+            "id": 9,
+            "name": "Bubbly Banana",
+            "image": "./bubbly_banana.png",
+            "price": 0.75,
+        },
+        {
+            "id": 10,
+            "name": "Cheeky Cherries",
+            "image": "./cheeky_cherries.png",
+            "price": 3.75,
+        },
+        {
+            "id": 11,
+            "name": "Rebellious Raspberries",
+            "image": "./rebellious_raspberries.png",
+            "price": 2.75,
+        },
+        {
+            "id": 12,
+            "name": "Amused Apple",
+            "image": "./amused_apple.png",
+            "price": 1.75,
+        },
     ]
 app = ShoppingCart()
 app.mainloop()
